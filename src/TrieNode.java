@@ -1,4 +1,5 @@
-//private static final int ALPHABETS = 26;//this throws an error as it is not a part of any class...and its "java"!! :P
+//private static final int ALPHABETS = 26;//this throws an error as it is not a part of any class...lets face it..its "java"!! :P
+
 import java.util.*;
 
 public class TrieNode {
@@ -91,12 +92,15 @@ public class TrieNode {
 	}
 	
 	public ArrayList<String> displayAllKeysWithPrefix(String prefix){
+		
 		TrieNode current = this;
 		int l=prefix.length();
 		ArrayList <String> result = new ArrayList<>();
 		for(int i=0;i<l;i++){
 			char ch = prefix.charAt(i);
 			int index = getCharIndex(ch);
+			if(current.children[index]==null)
+				return null;
 			current=current.children[index];
 		}
 		printAllWords(current,prefix,result);

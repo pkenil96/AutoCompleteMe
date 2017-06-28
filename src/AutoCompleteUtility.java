@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 public class AutoCompleteUtility {
 
@@ -56,12 +58,79 @@ public class AutoCompleteUtility {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				JOptionPane.showMessageDialog(null, "Hello");
+				display.setText("");
 				String prefix = textField.getText();
 				ArrayList <String> result = t.root.displayAllKeysWithPrefix(prefix);
-				System.out.println(result);
-				for(int i=0;i<result.size();i++)
-					display.append(result.get(i)+"\n");
+				if(result==null){
+					display.setText("No suggestions...");
+				} else {
+					System.out.println(result);
+					for(int i=0;i<result.size();i++)
+						display.append(result.get(i)+"\n");
+				}
+				
+			}
+		});
+		
+		/*
+		 * 
+			The appropriate listener in Java's swing to track changes in the text content of a JTextField is a DocumentListener,
+			that you have to add to the document of the JTextField:
+			
+			myTextField.getDocument().addDocumentListener(new DocumentListener() {
+			    // implement the methods
+			});
+		*/
+		
+		textField.getDocument().addDocumentListener(new DocumentListener() {
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				display.setText("");
+				String prefix = textField.getText();
+				ArrayList <String> result = t.root.displayAllKeysWithPrefix(prefix);
+				if(result==null){
+					display.setText("No suggestions");
+				} else {
+					System.out.println(result);
+					for(int i=0;i<result.size();i++)
+						display.append(result.get(i)+"\n");
+				}
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				//JOptionPane.showMessageDialog(null,e);
+				display.setText("");
+				String prefix = textField.getText();
+				ArrayList <String> result = t.root.displayAllKeysWithPrefix(prefix);
+				if(result==null){
+					display.setText("No suggestions");
+				} else {
+					System.out.println(result);
+					for(int i=0;i<result.size();i++)
+						display.append(result.get(i)+"\n");
+				}
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				//JOptionPane.showMessageDialog(null,e);
+				display.setText("");
+				String prefix = textField.getText();
+				ArrayList <String> result = t.root.displayAllKeysWithPrefix(prefix);
+				
+				if(result==null){
+					display.setText("No suggestions");
+				} else {
+					System.out.println(result);
+					for(int i=0;i<result.size();i++)
+						display.append(result.get(i)+"\n");
+				}
+			
 			}
 		});
 		
