@@ -44,7 +44,7 @@ public class AutoCompleteUtility {
 			t.root.insertIntoTrie("kettle");
 		*/
 		
-		//lets just grab a text field containing words and put them in the tree
+		//lets just grab a text file containing words and insert them in the tree
 		try{
 
 			File file = new File("words.txt");			
